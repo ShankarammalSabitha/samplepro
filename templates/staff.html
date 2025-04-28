@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Staff Dashboard</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Google Font -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+  <header>
+    <h1>Sanitary Cleaning System</h1>
+    <p>Staff Management Portal</p>
+  </header>
+
+  <div class="container">
+    <h2>Toilet Usage and Status</h2>
+    <table>
+        <thead>
+            <tr>
+                <th><i class="fas fa-id-badge icon"></i>Toilet ID</th>
+                <th><i class="fas fa-check-circle icon"></i>Status</th>
+                <th><i class="fas fa-users icon"></i>User Count</th>
+                <th><i class="fas fa-tint icon"></i>Flush Count</th>
+                <th><i class="fas fa-smog icon"></i>Odor Level</th>
+                <th>Action</th>
+                <th><i class="fas fa-smog icon"></i>Water Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record['fields'].get('Toilet ID', 'N/A') }}</td>
+                <td>{{ record['fields'].get('Status', 'N/A') }}</td>
+                <td>{{ record['fields'].get('User Count', 'N/A') }}</td>
+                <td>{{ record['fields'].get('Flush Count', 'N/A') }}</td>
+                <td>{{ record['fields'].get('Odor Level', 'N/A') }}</td>
+                <td>
+                    {% if record['fields'].get('Odor Level', 0) > 500 %}
+                        <p style="color: red; font-weight: bold;">⚠️ Immediate Cleaning Required!</p>
+                    {% else %}
+                        <p>No action needed</p>
+                    {% endif %}
+                </td>
+                <td>{{ record['fields'].get('Water Level', 'N/A') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Can do Crew | All Rights Reserved</p>
+  </footer>
+</body>
+</html>

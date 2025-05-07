@@ -61,22 +61,23 @@
     </div>
   </div>
   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const needle = document.getElementById("needle-{{ loop.index }}");
-      const odor = {{ level }};
-      let angle = 0;
+  document.addEventListener("DOMContentLoaded", function() {
+    const needle = document.getElementById("needle-{{ loop.index }}");
+    const odor = {{ level }};
+    let angle = 0;
 
-      if (odor < 3) {
-        angle = 30;
-      } else if (odor <= 5) {
-        angle = 90;
-      } else {
-        angle = 145;
-      }
+    if (odor < 3) {
+      angle = 45; // Low - green zone
+    } else if (odor <= 5) {
+      angle = 90; // Medium - yellow zone
+    } else {
+      angle = 135; // High - red zone (not beyond)
+    }
 
-      needle.setAttribute("transform", "rotate(" + angle + " 100 100)");
-    });
-  </script>
+    needle.setAttribute("transform", "rotate(" + angle + " 100 100)");
+  });
+</script>
+
   </td>
         <td>
                     {% if record['fields'].get('ppm', 0) > 500 %}

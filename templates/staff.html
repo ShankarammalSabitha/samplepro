@@ -56,7 +56,7 @@
       </defs>
     </svg>
     <div class="gauge-label">
-      {% set level = record['fields'].get('Odor Level', 0) %}
+      {% set level = record['fields'].get('ppm', 0) %}
       {{ "Low" if level < 3 else "Normal" if level <= 5 else "High" }} ({{ level }} ppm)
     </div>
   </div>

@@ -25,8 +25,7 @@
             <tr>
                 <th><i class="fas fa-id-badge icon"></i>Toilet ID</th>
                 <th><i class="fas fa-check-circle icon"></i>Status</th>
-                <th><i class="fas fa-users icon"></i>User Count</th>
-                <th><i class="fas fa-tint icon"></i>Flush Count</th>
+                <th><i class="fas fa-lightbulb icon"></i>Occupancy Indicator</th>
             </tr>
         </thead>
         <tbody>
@@ -34,8 +33,13 @@
             <tr>
                 <td>{{ record['fields']['Toilet ID'] }}</td>
                 <td>{{ record['fields']['Status'] }}</td>
-                <td>{{ record['fields']['User Count'] }}</td>
-                <td>{{ record['fields']['Flush Count'] }}</td>
+                <td>
+                  {% if record['fields']['Status'] == 'Vacant' %}
+                  <span style="color: green;">🟢</span>
+                  {% else %}
+                  <span style="color: red;">🔴</span>
+                    {% endif %}
+                 </td>
             </tr>
             {% endfor %}
         </tbody>

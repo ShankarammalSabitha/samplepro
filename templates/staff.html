@@ -71,15 +71,14 @@
       } else if (odor <= 5) {
         angle = 90;
       } else {
-        angle = 150;
+        angle = 145;
       }
 
       needle.setAttribute("transform", "rotate(" + angle + " 100 100)");
     });
   </script>
-</td>
-
-                <td>
+  </td>
+        <td>
                     {% if record['fields'].get('ppm', 0) > 500 %}
                         <p style="color: red; font-weight: bold;">⚠️ Immediate Cleaning Required!</p>
                     {% else %}

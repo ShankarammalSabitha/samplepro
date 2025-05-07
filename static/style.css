@@ -98,3 +98,29 @@ footer p {
       font-size: 2em;
   }
 }
+.odor-arrow {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.red-arrow {
+  color: red;
+  animation: pulse-red 1s infinite;
+}
+
+.green-arrow {
+  color: green;
+  animation: pulse-green 1s infinite;
+}
+
+@keyframes pulse-red {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes pulse-green {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(5px); }
+  100% { transform: translateX(0); }
+}

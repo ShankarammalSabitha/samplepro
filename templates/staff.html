@@ -40,17 +40,45 @@
                 <td>{{ record['fields'].get('User Count', 'N/A') }}</td>
                 <td>{{ record['fields'].get('Flush Count', 'N/A') }}</td>
                 <td>{{ record['fields'].get('ppm', 'N/A') }}</td>
-                <td>
-                    {% set level = record['fields'].get('Odor Level', 0) %}
-                    <div class="gauge-container">
-                        <div class="gauge">
-                               <div class="needle {% if level < 3 %}low{% elif level <= 5 %}normal{% else %}high{% endif %}"></div>
-                         </div>
-                         <div class="gauge-label">
-                                {% if level < 3 %}Low{% elif level <= 5 %}Normal{% else %}High{% endif %} ({{ level }} ppm)
-                        </div>
-                     </div>
-                 </td>
+               <td>
+  <div class="gauge-wrapper">
+    <svg viewBox="0 0 200 100" class="speedometer">
+      <path d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="#eee" stroke-width="20"/>
+      <path d="M 10 100 A 90 90 0 0 1 190 100" fill="none" stroke="url(#gauge-gradient)" stroke-width="20"/>
+      <line id="needle-{{ loop.index }}" x1="100" y1="100" x2="100" y2="20" stroke="black" stroke-width="4" />
+      <circle cx="100" cy="100" r="5" fill="black"/>
+      <defs>
+        <linearGradient id="gauge-gradient">
+          <stop offset="0%" stop-color="green"/>
+          <stop offset="50%" stop-color="yellow"/>
+          <stop offset="100%" stop-color="red"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="gauge-label">
+      {% set level = record['fields'].get('Odor Level', 0) %}
+      {{ "Low" if level < 3 else "Normal" if level <= 5 else "High" }} ({{ level }} ppm)
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const needle = document.getElementById("needle-{{ loop.index }}");
+      const odor = {{ level }};
+      let angle = 0;
+
+      if (odor < 3) {
+        angle = 30;
+      } else if (odor <= 5) {
+        angle = 90;
+      } else {
+        angle = 150;
+      }
+
+      needle.setAttribute("transform", "rotate(" + angle + " 100 100)");
+    });
+  </script>
+</td>
+
                 <td>
                     {% if record['fields'].get('ppm', 0) > 500 %}
                         <p style="color: red; font-weight: bold;">⚠️ Immediate Cleaning Required!</p>

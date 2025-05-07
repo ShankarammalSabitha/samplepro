@@ -28,8 +28,7 @@
                 <th><i class="fas fa-users icon"></i>User Count</th>
                 <th><i class="fas fa-tint icon"></i>Flush Count</th>
                 <th><i class="fas fa-smog icon"></i>Odor Level</th>
-                <th><i class="fas fa-thermometer-half icon"></i>Odor Indicator</th>
-
+                <th><i class="fas fa-gauge icon"></i>Odor Indicator</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -42,12 +41,16 @@
                 <td>{{ record['fields'].get('Flush Count', 'N/A') }}</td>
                 <td>{{ record['fields'].get('ppm', 'N/A') }}</td>
                 <td>
-                     {% if record['fields'].get('ppm', 0) > 500 %}
-                        <span class="odor-arrow red-arrow">➤</span>
-                     {% else %}
-                         <span class="odor-arrow green-arrow">➤</span>
-                    {% endif %}
-                </td>
+                    {% set level = record['fields'].get('Odor Level', 0) %}
+                    <div class="gauge-container">
+                        <div class="gauge">
+                               <div class="needle {% if level < 3 %}low{% elif level <= 5 %}normal{% else %}high{% endif %}"></div>
+                         </div>
+                         <div class="gauge-label">
+                                {% if level < 3 %}Low{% elif level <= 5 %}Normal{% else %}High{% endif %} ({{ level }} ppm)
+                        </div>
+                     </div>
+                 </td>
                 <td>
                     {% if record['fields'].get('ppm', 0) > 500 %}
                         <p style="color: red; font-weight: bold;">⚠️ Immediate Cleaning Required!</p>

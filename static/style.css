@@ -139,20 +139,19 @@ footer p {
   transform-origin: bottom center;
 }
 
-/* Needle rotation based on level */
-.needle.low {
-  transform: rotate(30deg);
+.gauge-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.needle.normal {
-  transform: rotate(90deg);
-}
-.needle.high {
-  transform: rotate(150deg);
+
+.speedometer {
+  width: 100px;
+  height: 60px;
 }
 
 .gauge-label {
-  font-size: 0.9em;
-  margin-top: 5px;
+  font-size: 0.85em;
   font-weight: bold;
+  margin-top: 4px;
 }
-
